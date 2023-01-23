@@ -78,7 +78,7 @@ public class GetMovies {
         
         string title = (string)theMovie.get('Title');
         string genre = (string)theMovie.get('Genre');
-        genre = genre.replaceAll(',', ';');
+        genre = genre.replaceAll(',', ';'); // Because picklist format
         
         string released = (string)theMovie.get('Released'); // "10 Oct 2012"
         string day = released.substring(0,2);
@@ -98,7 +98,7 @@ public class GetMovies {
             when 'Nov' {month='11';}
             when 'Dec' {month='12';}            
         }
-        released = day + '/' + month + '/' + year;
+        released = day + '/' + month + '/' + year; // "10/10/2012"
                 
         string yearAll = (string)theMovie.get('Year');
         string writer = (string)theMovie.get('Writer');
