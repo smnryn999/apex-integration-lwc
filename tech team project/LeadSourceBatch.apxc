@@ -1,0 +1,23 @@
+public class LeadSourceBatch implements Database.Batchable<sObject>, Schedulable {
+    public Database.QueryLocator start(Database.BatchableContext bc){
+        return Database.getQueryLocator([SELECT Id FROM Lead WHERE LeadSource = null]);
+    }
+    public void execute(Database.BatchableContext bc, List<Lead> listLead){
+        for(Lead le:listLead){
+            le.LeadSource = 'Manual';
+        }
+        update listLead;
+    }
+    public void finish(Database.BatchableContext bc){
+        
+    }
+    public void execute(System.SchedulableContext ctx){
+        LeadSourceBatch lsb = new LeadSourceBatch();
+        Database.executeBatch(lsb);
+    }
+}
+
+/*
+   LeadSourceBatch sch = new LeadSourceBatch();
+   System.schedule('Update LeadSource', '0 0 23 * * ? 2023', sch);
+*/
