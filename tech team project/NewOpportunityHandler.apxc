@@ -1,3 +1,5 @@
+// At least one Opportunity must exist for each newly created or updated Account.
+
 public class NewOpportunityHandler {
     public static void newOpp(List<Account> listAcc){
         
