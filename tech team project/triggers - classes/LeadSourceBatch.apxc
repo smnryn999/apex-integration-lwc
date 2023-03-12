@@ -1,3 +1,6 @@
+// For the records whose Lead Source is empty, the Lead Source must be filled as "Manual".
+// This process must occur every day at 11 pm.
+
 public class LeadSourceBatch implements Database.Batchable<sObject>, Schedulable {
     public Database.QueryLocator start(Database.BatchableContext bc){
         return Database.getQueryLocator([SELECT Id FROM Lead WHERE LeadSource = null]);
