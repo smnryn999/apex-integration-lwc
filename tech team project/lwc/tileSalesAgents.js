@@ -27,7 +27,8 @@ class TileSalesAgents extends NavigationMixin(LightningElement) {
                 recordId: recId,
                 objectApiName: 'SA_Details__c',
                 actionName: 'view',
-            })
+            }
+        });
     }
 }
 
