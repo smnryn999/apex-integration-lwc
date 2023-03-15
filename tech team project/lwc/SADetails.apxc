@@ -1,6 +1,6 @@
 public with sharing class SADetails {
     @AuraEnabled(cacheable = true)
     public static List<SA_Detail__c> getSADetails(String name){
-        return [SELECT Name__c, Customer_Handled__c, Experience__c, Date_of_Joining__c FROM SA_Detail__c WHERE Name__c = :name];
+        return [SELECT Name__c, Customer_Handled__c, Experience__c, Date_of_Joining__c, Location__c FROM SA_Detail__c WHERE Name__c = :name];
     }
 }
