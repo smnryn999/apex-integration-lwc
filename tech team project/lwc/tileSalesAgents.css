@@ -1,0 +1,23 @@
+lightning-icon, lightning-input {margin: 10px;}
+.header {
+    font-size: 20px;
+    font-weight: bold;
+}
+article {
+    background-color: #fafafa;
+    margin: 10px;
+    padding: 5px 0px 5px 5px;
+    border-radius: 3px;
+    position: relative;
+}
+article h3 {
+    font-weight: bold;
+    font-size: 15px;
+    display: inline;
+    margin-right: 25px;
+}
+lightning-button-icon {position: absolute; top: 10px; right: 10px;}
+
+:host {
+        --sds-c-card-color-background: lightblue;
+}
