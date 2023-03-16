@@ -17,6 +17,6 @@ article p {font-size: 12px;}
         --sds-c-card-color-background: lightblue;
 }
 
-.card, .avatar-info {display: flex; flex-wrap:wrap;}
-.avatar-info {margin-top: 17px;}
+.card, .avatar-info {display: flex; flex-wrap:wrap; justify-content: center;}
+.avatar-info {margin-top: 15px;}
 .avatar-info span {margin-right: 5px;}
