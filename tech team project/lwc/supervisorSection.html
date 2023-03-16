@@ -1,0 +1,10 @@
+<template>
+    <template if:true={sadetail.data}>
+       <lightning-card icon-name="standard:people" title="Supervisor">
+           <lightning-record-form object-api-name="Contact" record-id={supervisorId} layout-type="Compact"></lightning-record-form>
+       </lightning-card>
+    </template>
+    <template if:true={sadetail.error}>
+        <p>Something went wrong.</p>
+    </template>
+</template>
