@@ -1,26 +1,29 @@
-import { LightningElement, wire, api } from 'lwc';
-import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
-import NAME_FIELD from '@salesforce/schema/SA_Detail__c.Name';
-import LATITUDE from '@salesforce/schema/SA_Detail__c.Location__Latitude__s';
-import LONGITUDE from '@salesforce/schema/SA_Detail__c.Location__Longitude__s';
+import { LightningElement, api, wire } from 'lwc';
+import { getRecord } from 'lightning/uiRecordApi';
 
-export default class LocationOfSA extends LightningElement {
+export default class LoadContact extends LightningElement {
     @api recordId;
-    @wire(getRecord, { recordId: '$recordId', fields: [NAME_FIELD, LATITUDE, LONGITUDE] }) sadetail;
-    
-    get name (){
-        return getFieldValue(this.sadetail.data, NAME_FIELD);
-    }
-    get latitude (){
-        return getFieldValue(this.sadetail.data, LATITUDE);
-    }
-    get longitude (){
-        return getFieldValue(this.sadetail.data, LONGITUDE);
-    }
-   
-    mapMarkers = [{
-        location: {Latitude:this.latitude, Longitude:this.longitude},
-        title: this.name
+    sadetail;
+    errors;
+    mapMarkers;
+
+    @wire(getRecord, { recordId: '$recordId', fields: ['SA_Detail__c.Location__Latitude__s', 'SA_Detail__c.Location__Longitude__s'] })
+        wiredRecord({ error, data }) {
+            if (error) {
+                this.errors = error;
+                this.sadetail = undefined;
+            } else if (data) {
+                this.sadetail  = data;
+                var latitude  = this.sadetail.fields.Location__Latitude__s.value;
+                var longitude  = this.sadetail.fields.Location__Longitude__s.value;
+                this.mapMarkers = [
+                    {
+                        location: {
+                            Latitude: latitude,
+                            Longitude: longitude,
+                        },
+                    },
+                ];
+            }
         }
-    ];           
 }
