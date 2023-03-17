@@ -1,0 +1,10 @@
+<template>
+    <lightning-card icon-name="standard:address" title="Sales Agent Location">
+      <template if:true={mapMarkers}>
+         <lightning-map map-markers={mapMarkers} zoom-level="11"> </lightning-map>
+      </template>
+      <template if:true={errors}>
+          <p>Something went wrong.</p>
+      </template>
+    </lightning-card>
+</template>
