@@ -1,11 +1,11 @@
-import { LightningElement, wire } from 'lwc';
-import getLocations from '@salesforce/apex/SADetails.getSADetails';
+import { LightningElement, wire, track } from 'lwc';
+import getSADetails from '@salesforce/apex/SADetails.getSADetails';
 
 export default class LocationOfAgents extends LightningElement {
-    mapMarkers;
+    @track mapMarkers;
     errors;
 
-    @wire(getLocations)
+    @wire(getSADetails, {name:""})
     wiredLocations({ error, data }) {
         if (data) {
             this.mapMarkers = data.map((element) => {
