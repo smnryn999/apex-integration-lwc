@@ -1,0 +1,24 @@
+<template>
+  <lightning-card icon-name="standard:groups" title="All Sales Agent Details">
+    <lightning-input type="search" value={searchTerm} onchange={filterSA}></lightning-input>
+    
+    <div class="card">
+      <template for:each={agents.data} for:item="agent">
+        <article key={agent.Id} class="">
+            <h3 class="slds-tile slds-truncate" title="Name">{agent.Name}</h3>
+            <lightning-button-icon icon-name="utility:search" alternative-text="Search" name={agent.Id} class="slds-m-left_xxx-small" title="Search" onclick={goToRecordPage}></lightning-button-icon>          
+            <div class="avatar-info">
+              <span class="slds-avatar slds-avatar_circle slds-avatar_profile-image-small"></span>   
+              <div>    
+                <p>Name: {agent.Name}</p>
+                <p>Customer Handled: {agent.Customer_Handled__c}</p>
+                <p>Experience: {agent.Experience__c}</p>
+                <p>Date of Joining: {agent.Date_of_Joining__c}</p>
+              </div>
+            </div>    
+        </article>
+    </template>
+    </div>
+  
+  </lightning-card>
+</template>
