@@ -1,5 +1,5 @@
 @isTest
-public class TestActiveContacts {    
+public class ActiveContactsTest {    
     @testSetup
     static void builtRecords(){
         List<Account> listAcc = new List<Account>();
