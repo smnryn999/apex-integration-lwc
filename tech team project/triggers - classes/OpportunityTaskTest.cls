@@ -1,7 +1,6 @@
 @isTest
-public class OpportunityTaskTest {
-    @testSetup
-    public static void builtData(){
+private class OpportunityTaskTest {
+    @testSetup static void builtData(){
         Account acc = new Account(Name='New Account');
         insert acc;
         
@@ -18,8 +17,7 @@ public class OpportunityTaskTest {
         update listOpp;
     }
     
-    @isTest
-    public static void test(){
+    @isTest static void test(){
         System.assertEquals(50, [SELECT Count() FROM Task WHERE Subject = 'Follow up Task']);
         Task task = [SELECT ActivityDate, WhatId FROM Task LIMIT 1];
         System.assert(task.ActivityDate == Date.today().addMonths(1));
