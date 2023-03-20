@@ -1,7 +1,7 @@
 @isTest
-public class LeadSourceBatchTest {
+private class LeadSourceBatchTest {
     @testSetup
-    public static void buildData(){
+    static void buildData(){
         List<Lead> listLead = new List<Lead>();
         for(integer i=0; i<150; i++){
             Lead lead = new Lead(LastName='Test Lead', Company='Test Company');
@@ -10,7 +10,7 @@ public class LeadSourceBatchTest {
         insert listLead;
     }
     @isTest
-    public static void test(){
+    static void test(){
         LeadSourceBatch lsb = new LeadSourceBatch();
         test.startTest();
         Database.executeBatch(lsb);
