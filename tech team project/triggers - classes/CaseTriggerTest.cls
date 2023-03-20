@@ -1,7 +1,6 @@
 @isTest
-public class CaseTriggerTest {
-    @testSetup
-    public static void buildData(){
+private class CaseTriggerTest {
+    @testSetup static void buildData(){
         Account acc = new Account(Name = 'New Account');
         insert acc;
         Case oldcase = new Case(Status='Working', Origin='Phone', AccountId=acc.Id);
@@ -13,8 +12,7 @@ public class CaseTriggerTest {
         Case case4 = new Case(Status='New', Origin='Phone', Priority='Medium');        
         insert case4;
     }
-    @isTest
-    public static void test(){
+    @isTest static void test(){
         Case case2 = [SELECT ParentId FROM Case WHERE Priority = 'Low' LIMIT 1];
         Case oldcase = [SELECT Id FROM Case WHERE Status = 'Working' LIMIT 1];
         System.assert(case2.ParentId == oldcase.Id);
