@@ -1,18 +1,23 @@
 @isTest
-private class CaseTriggerTest {
-    @testSetup static void buildData(){
+public class CaseTriggerTest {
+    @testSetup
+    public static void buildData(){
         Account acc = new Account(Name = 'New Account');
         insert acc;
         Case oldcase = new Case(Status='Working', Origin='Phone', AccountId=acc.Id);
         insert oldcase;
+        
+        List<Case> newcases = new List<Case>();
         Case case2 = new Case(Status='New', Origin='Phone', AccountId=acc.Id, Priority='Low');        
-        insert case2;
+        newcases.add(case2);
         Case case3 = new Case(Status='New', Origin='Email', AccountId=acc.Id);  
-        insert case3;
-        Case case4 = new Case(Status='New', Origin='Phone', Priority='Medium');        
-        insert case4;
+        newcases.add(case3);
+        Case case4 = new Case(Status='New', Origin='Phone', Priority='Medium');  
+        newcases.add(case4);
+        insert newcases;
     }
-    @isTest static void test(){
+    @isTest
+    public static void test(){
         Case case2 = [SELECT ParentId FROM Case WHERE Priority = 'Low' LIMIT 1];
         Case oldcase = [SELECT Id FROM Case WHERE Status = 'Working' LIMIT 1];
         System.assert(case2.ParentId == oldcase.Id);
