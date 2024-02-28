@@ -1,8 +1,0 @@
-trigger ActiveContactsTrigger on Contact (after insert, after update, after delete, after undelete) {
-    if(Trigger.isInsert || Trigger.isUpdate || Trigger.isUndelete){    
-        ActiveContactsHelper.countContacts(Trigger.new);
-    }
-    if(Trigger.isDelete){         
-        ActiveContactsHelper.countContacts(Trigger.old);        
-    }
-}
