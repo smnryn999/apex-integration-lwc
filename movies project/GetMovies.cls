@@ -65,9 +65,10 @@ public class GetMovies {
     private static List<string> httpHandle(string movieName){
         movieName = movieName.replaceAll(' ', '+');
         movieName = movieName.replaceAll('&', '%26');
+        string apikey;
         Http http = new Http();
         HttpRequest request = new HttpRequest();
-        request.setEndpoint('http://www.omdbapi.com/?apikey=8afcade&t='+movieName+'&plot=full');
+        request.setEndpoint('http://www.omdbapi.com/?apikey='+apikey+'&t='+movieName+'&plot=full');
         request.setMethod('GET');
         request.setTimeout(500);
         HttpResponse response = http.send(request);
