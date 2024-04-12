@@ -1,16 +1,14 @@
-
 public class GetMovies {
-    
+   
     @future(callout = true)
     public static void insertTheSeries(string sName){
-        
         List<string> listContent = httpHandle(sName);
         
-        Date releasedDate = Date.parse(listContent[2]);
+        Date releasedDate = listContent[2] != null ? Date.parse(listContent[2]) : null;
         decimal imdbRatingVal = Decimal.valueOf(listContent[5]);
             
         Series__c theSeries = new Series__c(Name=listContent[0], Genre__c=listContent[1], Released__c = releasedDate, Year__c = listContent[3], Writer__c = listContent[4], IMDB_Rating__c = imdbRatingVal, Actors__c = listContent[6], Story__c = listContent[7], Director__c = listContent[8]);
-        insert theSeries;      
+        insert theSeries;
     }
     
     @future(callout = true)
@@ -18,7 +16,7 @@ public class GetMovies {
         
         List<string> listContent = httpHandle(mName);
         
-        Date releasedDate = Date.parse(listContent[2]);
+        Date releasedDate = listContent[2] != null ? Date.parse(listContent[2]) : null;
         decimal imdbRatingVal = Decimal.valueOf(listContent[5]);
             
         Movies__c theMovie = new Movies__c(Name=listContent[0], Genre__c=listContent[1], Released__c = releasedDate, Writer__c = listContent[4], IMDB_Rating__c = imdbRatingVal, Actors__c = listContent[6], Story__c = listContent[7], Director__c = listContent[8]);
@@ -30,7 +28,7 @@ public class GetMovies {
         
         List<string> listContent = httpHandle(sName);
         
-        Date releasedDate = Date.parse(listContent[2]);
+        Date releasedDate = listContent[2] != null ? Date.parse(listContent[2]) : null;
         decimal imdbRatingVal = Decimal.valueOf(listContent[5]);
         
         Series__c theSeries = [SELECT Name, Genre__c, Released__c, Year__c, Writer__c, IMDB_Rating__c, Actors__c, Story__c, Director__c FROM Series__c WHERE Name = :sName];
@@ -50,7 +48,7 @@ public class GetMovies {
         
         List<string> listContent = httpHandle(mName);
         
-        Date releasedDate = Date.parse(listContent[2]);
+        Date releasedDate = listContent[2] != null ? Date.parse(listContent[2]) : null;
         decimal imdbRatingVal = Decimal.valueOf(listContent[5]);
         
         Movies__c theMovie = [SELECT Name, Genre__c, Released__c, Writer__c, IMDB_Rating__c, Actors__c, Story__c, Director__c FROM Movies__c WHERE Name = :mName];
@@ -65,12 +63,11 @@ public class GetMovies {
     }
     
     private static List<string> httpHandle(string movieName){
-        String apikey;
         movieName = movieName.replaceAll(' ', '+');
-
+        movieName = movieName.replaceAll('&', '%26');
         Http http = new Http();
         HttpRequest request = new HttpRequest();
-        request.setEndpoint('http://www.omdbapi.com/?apikey='+apikey+'&t='+movieName+'&plot=full');
+        request.setEndpoint('http://www.omdbapi.com/?apikey=8afcade&t='+movieName+'&plot=full');
         request.setMethod('GET');
         request.setTimeout(500);
         HttpResponse response = http.send(request);
@@ -80,11 +77,11 @@ public class GetMovies {
         
         string title = (string)theMovie.get('Title');
         string genre = (string)theMovie.get('Genre');
-        genre = genre.replaceAll(',', ';'); // Because picklist format
+        genre = genre.replaceAll(',', ';');
         
         string released = (string)theMovie.get('Released'); // "10 Oct 2012"
         string day = released.substring(0,2);
-        string year = released.substring(released.length()-4);
+        string year = released.substringAfterLast(' ');
         string month = released.substringBetween(' ', ' ');
         switch on month {
             when 'Jan' {month='01';}
@@ -100,7 +97,7 @@ public class GetMovies {
             when 'Nov' {month='11';}
             when 'Dec' {month='12';}            
         }
-        released = day + '/' + month + '/' + year; // "10/10/2012"
+        released = released == 'N/A' ? null : (day + '/' + month + '/' + year);
                 
         string yearAll = (string)theMovie.get('Year');
         string writer = (string)theMovie.get('Writer');
