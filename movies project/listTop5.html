@@ -1,4 +1,3 @@
-<!-- top 5 html -->
 <template>
 
   <lightning-card title="Series" icon-name="custom:custom21">
@@ -16,9 +15,9 @@
           </thead>
         
           <template for:each={series.data} for:item="serial">
-            <tbody key={serial.id}>
+            <tbody key={serial.Id}>
               <tr class="slds-hint-parent">
-                <th scope="row"><div class="slds-truncate"><a href="#" tabindex="-1">{serial.Name}</a></div></th>
+                <th scope="row"><div class="slds-truncate"><a name={serial.Id} tabindex="-1" onclick={goToTVShow}>{serial.Name}</a></div></th>
                 <td><div class="slds-truncate">{serial.Genre__c}</div></td>
                 <td><div class="slds-truncate">{serial.Released__c}</div></td>
                 <td><div class="slds-truncate">{serial.Year__c}</div></td>
@@ -45,9 +44,9 @@
         </thead>
       
         <template for:each={movies.data} for:item="movie">
-          <tbody key={movie.id}>
+          <tbody key={movie.Id}>
             <tr class="slds-hint-parent">
-              <th scope="row"><div class="slds-truncate"><a href="#" tabindex="-1">{movie.Name}</a></div></th>
+              <th scope="row"><div class="slds-truncate"><a name={movie.Id} tabindex="-1" onclick={goToMovie}>{movie.Name}</a></div></th>
               <td><div class="slds-truncate">{movie.Genre__c}</div></td>
               <td><div class="slds-truncate">{movie.Released__c}</div></td>
               <td><div class="slds-truncate">{movie.Writer__c}</div></td>
