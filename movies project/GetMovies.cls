@@ -1,6 +1,6 @@
 public class GetMovies {
    
-    @future(callout = true)
+    @future(callout = true) @AuraEnabled
     public static void insertTheSeries(string sName){
         List<string> listContent = httpHandle(sName);
         
