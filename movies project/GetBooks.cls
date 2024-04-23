@@ -1,4 +1,5 @@
 public class GetBooks {
+    @AuraEnabled
     public static void getBook(String bookName){
         
         bookName = bookName.replaceAll(' ', '+');
