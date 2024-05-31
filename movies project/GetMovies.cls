@@ -1,7 +1,7 @@
 public class GetMovies {
    
-    @future(callout = true) @AuraEnabled
-    public static void insertTheSeries(string sName){
+    @AuraEnabled
+    public static Series__c insertTheSeries(string sName){
         List<string> listContent = httpHandle(sName);
         
         Date releasedDate = listContent[2] != null ? Date.parse(listContent[2]) : null;
@@ -9,10 +9,11 @@ public class GetMovies {
             
         Series__c theSeries = new Series__c(Name=listContent[0], Genre__c=listContent[1], Released__c = releasedDate, Year__c = listContent[3], Writer__c = listContent[4], IMDB_Rating__c = imdbRatingVal, Actors__c = listContent[6], Story__c = listContent[7], Director__c = listContent[8]);
         insert theSeries;
+        return theSeries;
     }
     
-    @future(callout = true) @AuraEnabled
-    public static void insertTheMovie(string mName){
+    @AuraEnabled
+    public static Movies__c insertTheMovie(string mName){
         
         List<string> listContent = httpHandle(mName);
         
@@ -20,7 +21,8 @@ public class GetMovies {
         decimal imdbRatingVal = Decimal.valueOf(listContent[5]);
             
         Movies__c theMovie = new Movies__c(Name=listContent[0], Genre__c=listContent[1], Released__c = releasedDate, Writer__c = listContent[4], IMDB_Rating__c = imdbRatingVal, Actors__c = listContent[6], Story__c = listContent[7], Director__c = listContent[8]);
-        insert theMovie;      
+        insert theMovie;
+        return theMovie;
     }
 
     @future(callout = true)
