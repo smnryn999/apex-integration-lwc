@@ -1,15 +1,16 @@
 public class GetBooks {
     @AuraEnabled
-    public static void getBook(String bookName){
+    public static void getBook(String bookName, String authorName){
         
-        bookName = bookName.replaceAll(' ', '+');
+        bookName = bookName.trim().replaceAll(' ', '+');
+        authorName = authorName.trim().replaceAll(' ', '+');
         
         Http http = new Http();
         HttpRequest request = new HttpRequest();
-        request.setEndpoint('https://openlibrary.org/search.json?title='+bookName);
+        request.setEndpoint('https://openlibrary.org/search.json?title='+bookName+'&author='+authorName);
         request.setMethod('GET');
         request.setHeader('content-type', 'application/json');
-        // request.setHeader('authorization', 'apikey 5pROSPdgIHzaTswgHHsxB9:2r8guwZh9i9FZp34Z61k9Y');
+        // request.setHeader('authorization', 'apikey 1234567890abcdef');
         HttpResponse response = http.send(request);
         // System.debug(response.getStatusCode() + ' and ' + response.getBody());
         
@@ -47,7 +48,7 @@ public class GetBooks {
                 textTime += (String)t;
             }
         }
-        
+               
         Book__c book = new Book__c();
         book.Name = title;
         book.Author__c = (String)author[0];
