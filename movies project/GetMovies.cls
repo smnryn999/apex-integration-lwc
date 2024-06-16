@@ -33,7 +33,7 @@ public class GetMovies {
         Date releasedDate = listContent[2] != null ? Date.parse(listContent[2]) : null;
         decimal imdbRatingVal = Decimal.valueOf(listContent[5]);
         
-        Series__c theSeries = [SELECT Name, Genre__c, Released__c, Year__c, Writer__c, IMDB_Rating__c, Actors__c, Story__c, Director__c FROM Series__c WHERE Name = :sName];
+        Series__c theSeries = [SELECT Name FROM Series__c WHERE Name = :sName];
         theSeries.Genre__c = listContent[1];
         theSeries.Released__c = releasedDate;
         theSeries.Year__c = listContent[3];
@@ -53,7 +53,7 @@ public class GetMovies {
         Date releasedDate = listContent[2] != null ? Date.parse(listContent[2]) : null;
         decimal imdbRatingVal = Decimal.valueOf(listContent[5]);
         
-        Movies__c theMovie = [SELECT Name, Genre__c, Released__c, Writer__c, IMDB_Rating__c, Actors__c, Story__c, Director__c FROM Movies__c WHERE Name = :mName];
+        Movies__c theMovie = [SELECT Name FROM Movies__c WHERE Name = :mName];
         theMovie.Genre__c = listContent[1];
         theMovie.Released__c = releasedDate;
         theMovie.Writer__c = listContent[4];
